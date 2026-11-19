@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTO BIKERS | Domina el Asfalto con Estilo Propio</title>
+    
+    <!-- Google Fonts: Orbitron & Rajdhani para estilo racing/cromado, Inter para lectura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos complementarios -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#08080A',
+                        asphalt: '#121318',
+                        carbon: '#1A1C23',
+                        neonBlue: '#00D2FF',
+                        electricBlue: '#0099FF',
+                        forkGold: '#F59E0B',
+                        amberDark: '#D97706',
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para estética cromada, neón y arcoíris del emblema */
+        body {
+            background-color: #08080A;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Efecto Texto Cromado Acero Cepillado */
+        .chrome-text {
+            background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 35%, #94A3B8 50%, #F1F5F9 65%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.8));
+        }
+
+        .chrome-border {
+            border: 1px solid rgba(226, 232, 240, 0.25);
+            background: linear-gradient(145deg, rgba(26, 28, 35, 0.95), rgba(18, 19, 24, 0.98));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Franja Arcoíris del Escudo */
+        .rainbow-line {
+            background: linear-gradient(90deg, #EF4444 0%, #F97316 20%, #EAB308 40%, #22C55E 60%, #3B82F6 80%, #A855F7 100%);
+        }
+
+        .rainbow-border-hover {
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .rainbow-border-hover::before {
+            content: "";
+            position: absolute;
+            inset: -1.5px;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: linear-gradient(90deg, #EF4444, #F97316, #EAB308, #22C55E, #00D2FF, #A855F7);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+        .rainbow-border-hover:hover::before {
+            opacity: 1;
+        }
+        .rainbow-border-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px -10px rgba(0, 210, 255, 0.25);
+        }
+
+        /* Resplandor Azul Neón (Faros) */
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.5), 0 0 30px rgba(0, 153, 255, 0.3);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 22px rgba(0, 210, 255, 0.8), 0 0 45px rgba(0, 153, 255, 0.5);
+        }
+        .neon-text-glow {
+            text-shadow: 0 0 12px rgba(0, 210, 255, 0.7);
+        }
+
+        /* Textura de fibra de carbono / asfalto sutil */
+        .carbon-bg {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        /* Sliders personalizados */
+        input[type="range"] {
+            -webkit-appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #EF4444, #F97316, #EAB308, #22C55E, #00D2FF, #A855F7);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            border: 3px solid #00D2FF;
+            box-shadow: 0 0 12px #00D2FF;
+            margin-top: -7px;
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        /* Animación de pulso para faros */
+        @keyframes headlightPulse {
+            0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 8px #00D2FF); }
+            50% { opacity: 1; filter: drop-shadow(0 0 18px #00D2FF); }
+        }
+        .headlight-anim {
+            animation: headlightPulse 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="carbon-bg antialiased selection:bg-neonBlue selection:text-obsidian">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-obsidian/90 backdrop-blur-md border-b border-slate-800/80">
+        <!-- Línea superior arcoíris ultra fina -->
+        <div class="h-1 w-full rainbow-line"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logotipo Emblema Vectorial Inspirado en el Escudo Moto Bikers -->
+                <a href="#inicio" class="flex items-center gap-3 group">
+                    <div class="relative w-[68px] h-[68px] flex items-center justify-center shrink-0">
+                        <img src="moto-bikers-logo.png" alt="Logo oficial MOTO BIKERS" class="w-full h-full object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-orbitron font-black text-xl sm:text-2xl tracking-wider chrome-text leading-none">MOTO BIKERS</span>
+                        <span class="font-rajdhani text-xs font-bold tracking-[0.25em] text-neonBlue uppercase mt-0.5">Performance & Style</span>
+                    </div>
+                </a>
+
+                <!-- Enlaces Escritorio -->
+                <nav class="hidden lg:flex items-center space-x-8 font-rajdhani font-semibold text-lg tracking-wide">
+                    <a href="#inicio" class="text-slate-200 hover:text-neonBlue transition-colors">Inicio</a>
+                    <a href="#catalogo" class="text-slate-200 hover:text-neonBlue transition-colors">Catálogo</a>
+                    <a href="#financiamiento" class="text-slate-200 hover:text-neonBlue transition-colors">Financiamiento</a>
+                    <a href="#servicios" class="text-slate-200 hover:text-neonBlue transition-colors">Taller y Accesorios</a>
+                    <a href="#contacto" class="text-slate-200 hover:text-neonBlue transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Botón CTA Desktop -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <a href="#contacto" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-neonBlue to-electricBlue text-obsidian font-rajdhani font-bold text-base uppercase tracking-wider neon-glow transition-all transform hover:scale-105">
+                        <i class="fa-solid fa-gauge-high mr-1.5"></i> Agendar Prueba de Manejo
+                    </a>
+                </div>
+
+                <!-- Botón Menú Móvil -->
+                <button id="mobileMenuBtn" aria-label="Abrir menú" class="lg:hidden p-2.5 rounded-xl bg-carbon border border-slate-700 text-slate-200 hover:text-neonBlue">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-asphalt border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#inicio" class="mobile-link block py-2 px-3 rounded-lg font-rajdhani text-lg font-semibold text-slate-200 hover:bg-carbon hover:text-neonBlue">Inicio</a>
+            <a href="#catalogo" class="mobile-link block py-2 px-3 rounded-lg font-rajdhani text-lg font-semibold text-slate-200 hover:bg-carbon hover:text-neonBlue">Catálogo</a>
+            <a href="#financiamiento" class="mobile-link block py-2 px-3 rounded-lg font-rajdhani text-lg font-semibold text-slate-200 hover:bg-carbon hover:text-neonBlue">Financiamiento</a>
+            <a href="#servicios" class="mobile-link block py-2 px-3 rounded-lg font-rajdhani text-lg font-semibold text-slate-200 hover:bg-carbon hover:text-neonBlue">Taller y Accesorios</a>
+            <a href="#contacto" class="mobile-link block py-2 px-3 rounded-lg font-rajdhani text-lg font-semibold text-slate-200 hover:bg-carbon hover:text-neonBlue">Contacto</a>
+            <div class="pt-2">
+                <a href="#contacto" class="mobile-link block text-center w-full py-3 rounded-xl bg-gradient-to-r from-neonBlue to-electricBlue text-obsidian font-rajdhani font-bold uppercase tracking-wider neon-glow">
+                    Agendar Prueba de Manejo
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HERO (PORTADA) -->
+    <section id="inicio" class="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden">
+        <!-- Resplandores ambientales de fondo -->
+        <div class="absolute top-20 left-1/4 w-96 h-96 bg-neonBlue/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-purple-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Columna Izquierda: Copy y CTAs -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-carbon border border-slate-700/80 shadow-inner">
+                        <span class="w-2.5 h-2.5 rounded-full bg-neonBlue animate-ping"></span>
+                        <span class="font-rajdhani font-bold text-xs sm:text-sm tracking-widest uppercase text-slate-300">
+                            Colección 2026 • Edición Cromada & Neón
+                        </span>
+                    </div>
+
+                    <h1 class="font-orbitron font-black text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight chrome-text uppercase">
+                        DOMINA EL ASFALTO CON ESTILO PROPIO
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        En <strong class="text-white">MOTO BIKERS</strong> fusionamos ingeniería de alta cilindrada, acabados metálicos de precisión y el espíritu libre e inclusivo de rodar sin límites. Tu próxima máquina te espera.
+                    </p>
+
+                    <!-- Botones de Acción -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#catalogo" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-neonBlue to-electricBlue text-obsidian font-orbitron font-extrabold text-sm uppercase tracking-wider neon-glow transition-all transform hover:-translate-y-1 text-center">
+                            Explorar Catálogo <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#financiamiento" class="w-full sm:w-auto px-8 py-4 rounded-xl chrome-border text-white font-orbitron font-bold text-sm uppercase tracking-wider hover:border-neonBlue transition-all transform hover:-translate-y-1 text-center">
+                            <i class="fa-solid fa-calculator text-forkGold mr-2"></i> Cotizar Ahora
+                        </a>
+                    </div>
+
+                    <!-- Tarjetas Flotantes de Estadísticas -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-5 pt-6">
+                        <div class="chrome-border rounded-2xl p-3 sm:p-4 text-center lg:text-left relative overflow-hidden">
+                            <div class="h-1 w-10 rainbow-line rounded-full mb-2 mx-auto lg:mx-0"></div>
+                            <p class="font-orbitron font-extrabold text-xl sm:text-2xl text-white">+150</p>
+                            <p class="text-xs sm:text-sm text-slate-400 font-medium">Modelos Disponibles</p>
+                        </div>
+                        <div class="chrome-border rounded-2xl p-3 sm:p-4 text-center lg:text-left relative overflow-hidden">
+                            <div class="h-1 w-10 bg-neonBlue rounded-full mb-2 mx-auto lg:mx-0"></div>
+                            <p class="font-orbitron font-extrabold text-xl sm:text-2xl text-neonBlue">24 Horas</p>
+                            <p class="text-xs sm:text-sm text-slate-400 font-medium">Aprobación Crédito</p>
+                        </div>
+                        <div class="chrome-border rounded-2xl p-3 sm:p-4 text-center lg:text-left relative overflow-hidden">
+                            <div class="h-1 w-10 bg-forkGold rounded-full mb-2 mx-auto lg:mx-0"></div>
+                            <p class="font-orbitron font-extrabold text-xl sm:text-2xl text-forkGold">3 Años</p>
+                            <p class="text-xs sm:text-sm text-slate-400 font-medium">Garantía Extendida</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Visualización de Alto Impacto -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-3xl p-1.5 rainbow-line shadow-2xl">
+                        <div class="relative rounded-[22px] bg-asphalt overflow-hidden">
+                            <!-- Imagen principal deportiva -->
+                            <img 
+                                src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1000&q=85" 
+                                alt="Superbike Moto Bikers Edición Especial" 
+                                class="w-full h-[380px] sm:h-[460px] object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                                onerror="this.onerror=null;this.src='https://placehold.co/800x600/121318/00D2FF?text=MOTO+BIKERS+SUPERBIKE';"
+                            >
+                            <!-- Overlay degradado oscuro -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/30 to-transparent"></div>
+                            
+                            <!-- Etiqueta Dorada VIP -->
+                            <div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-obsidian/90 border border-forkGold/60 backdrop-blur-md flex items-center gap-2">
+                                <i class="fa-solid fa-crown text-forkGold text-xs"></i>
+                                <span class="font-rajdhani font-bold text-xs tracking-wider uppercase text-forkGold">Edición Flagship</span>
+                            </div>
+
+                            <!-- Ficha rápida superpuesta abajo -->
+                            <div class="absolute bottom-4 left-4 right-4 chrome-border rounded-2xl p-4 backdrop-blur-md">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs font-rajdhani font-bold uppercase tracking-widest text-neonBlue">Superbike 1000cc</span>
+                                        <h3 class="font-orbitron font-bold text-lg text-white">VORTEX R1-CHROME</h3>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block text-xs text-slate-400">Desde</span>
+                                        <span class="font-orbitron font-extrabold text-lg text-forkGold">$18,900 USD</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-slate-700/70 text-center text-xs">
+                                    <div>
+                                        <span class="text-slate-400 block">Potencia</span>
+                                        <strong class="text-white font-rajdhani text-sm">205 HP</strong>
+                                    </div>
+                                    <div>
+                                        <span class="text-slate-400 block">0-100 km/h</span>
+                                        <strong class="text-neonBlue font-rajdhani text-sm">2.8 seg</strong>
+                                    </div>
+                                    <div>
+                                        <span class="text-slate-400 block">Vel. Máx</span>
+                                        <strong class="text-white font-rajdhani text-sm">299 km/h</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SEPARADOR ARCOÍRIS -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="h-0.5 w-full rainbow-line opacity-60 rounded-full"></div>
+    </div>
+
+    <!-- CATÁLOGO INTERACTIVO DE MOTOCICLETAS -->
+    <section id="catalogo" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Encabezado Sección -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <span class="font-rajdhani font-bold text-neonBlue tracking-[0.2em] uppercase text-sm">Showroom Digital</span>
+                    <h2 class="font-orbitron font-black text-3xl sm:text-4xl chrome-text uppercase mt-1">Catálogo de Máquinas</h2>
+                </div>
+
+                <!-- Buscador Rápido -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Buscar modelo o cilindrada (ej. 1000cc)..." 
+                        class="w-full pl-11 pr-4 py-3 rounded-xl bg-carbon border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-neonBlue transition-colors"
+                    >
+                </div>
+            </div>
+
+            <!-- Filtros por Categoría -->
+            <div id="categoryFilters" class="flex flex-wrap gap-2.5 mb-10">
+                <button data-category="Todas" class="filter-btn active px-5 py-2.5 rounded-xl font-rajdhani font-bold text-sm uppercase tracking-wider bg-neonBlue text-obsidian neon-glow transition-all">
+                    Todas
+                </button>
+                <button data-category="Deportivas" class="filter-btn px-5 py-2.5 rounded-xl font-rajdhani font-bold text-sm uppercase tracking-wider bg-carbon text-slate-300 border border-slate-700 hover:border-neonBlue transition-all">
+                    Deportivas
+                </button>
+                <button data-category="Naked" class="filter-btn px-5 py-2.5 rounded-xl font-rajdhani font-bold text-sm uppercase tracking-wider bg-carbon text-slate-300 border border-slate-700 hover:border-neonBlue transition-all">
+                    Naked
+                </button>
+                <button data-category="Adventure" class="filter-btn px-5 py-2.5 rounded-xl font-rajdhani font-bold text-sm uppercase tracking-wider bg-carbon text-slate-300 border border-slate-700 hover:border-neonBlue transition-all">
+                    Adventure / Touring
+                </button>
+                <button data-category="Urbanas" class="filter-btn px-5 py-2.5 rounded-xl font-rajdhani font-bold text-sm uppercase tracking-wider bg-carbon text-slate-300 border border-slate-700 hover:border-neonBlue transition-all">
+                    Urbanas / Scooter
+                </button>
+            </div>
+
+            <!-- Cuadrícula de Motos (Renderizada dinámicamente por JS) -->
+            <div id="motoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Las tarjetas se insertan vía JavaScript -->
+            </div>
+
+            <!-- Mensaje cuando no hay resultados -->
+            <div id="emptyState" class="hidden text-center py-16 chrome-border rounded-2xl">
+                <i class="fa-solid fa-motorcycle text-4xl text-slate-500 mb-3"></i>
+                <h3 class="font-orbitron font-bold text-lg text-white">No encontramos motos con ese filtro</h3>
+                <p class="text-slate-400 text-sm mt-1">Intenta buscar otra cilindrada o selecciona "Todas" las categorías.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULADOR DE FINANCIAMIENTO INTERACTIVO (TABLERO DIGITAL) -->
+    <section id="financiamiento" class="py-20 bg-asphalt/70 border-y border-slate-800/80 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="font-rajdhani font-bold text-forkGold tracking-[0.2em] uppercase text-sm">Crédito Inmediato</span>
+                <h2 class="font-orbitron font-black text-3xl sm:text-4xl chrome-text uppercase mt-1">Simulador de Cuotas</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">Configura tu plan a medida con aprobación en 24 horas y tasas preferenciales.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Panel de Controles -->
+                <div class="lg:col-span-7 chrome-border rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                    <div>
+                        <label for="calcMotoSelect" class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-2">
+                            1. Selecciona tu Motocicleta
+                        </label>
+                        <select id="calcMotoSelect" class="w-full p-3.5 rounded-xl bg-obsidian border border-slate-700 text-white font-medium focus:outline-none focus:border-neonBlue">
+                            <!-- Opciones pobladas desde JS -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="downPaymentSlider" class="font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300">
+                                2. Cuota Inicial (<span id="downPaymentPct" class="text-neonBlue">20%</span>)
+                            </label>
+                            <span id="downPaymentAmount" class="font-orbitron font-bold text-base text-white">$0 USD</span>
+                        </div>
+                        <input type="range" id="downPaymentSlider" min="10" max="70" step="5" value="20" class="w-full">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1">
+                            <span>10% Mínimo</span>
+                            <span>40% Recomendado</span>
+                            <span>70% Máximo</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-3">
+                            3. Plazo de Financiación (Meses)
+                        </label>
+                        <div id="termButtons" class="grid grid-cols-5 gap-2 sm:gap-3">
+                            <button type="button" data-months="12" class="term-btn py-3 rounded-xl font-orbitron font-bold text-xs sm:text-sm bg-obsidian border border-slate-700 text-slate-300 hover:border-neonBlue transition-all">12M</button>
+                            <button type="button" data-months="24" class="term-btn py-3 rounded-xl font-orbitron font-bold text-xs sm:text-sm bg-obsidian border border-slate-700 text-slate-300 hover:border-neonBlue transition-all">24M</button>
+                            <button type="button" data-months="36" class="term-btn active py-3 rounded-xl font-orbitron font-bold text-xs sm:text-sm bg-neonBlue text-obsidian neon-glow transition-all">36M</button>
+                            <button type="button" data-months="48" class="term-btn py-3 rounded-xl font-orbitron font-bold text-xs sm:text-sm bg-obsidian border border-slate-700 text-slate-300 hover:border-neonBlue transition-all">48M</button>
+                            <button type="button" data-months="60" class="term-btn py-3 rounded-xl font-orbitron font-bold text-xs sm:text-sm bg-obsidian border border-slate-700 text-slate-300 hover:border-neonBlue transition-all">60M</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablero Digital de Resultados (Estilo Velocímetro) -->
+                <div class="lg:col-span-5 rounded-3xl p-1 rainbow-line shadow-2xl">
+                    <div class="h-full bg-obsidian rounded-[22px] p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+                        <!-- Decoración curva tipo tacómetro -->
+                        <div class="absolute -right-16 -top-16 w-48 h-48 rounded-full border-4 border-neonBlue/20 pointer-events-none"></div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                <span class="font-rajdhani font-bold uppercase tracking-widest text-xs text-neonBlue flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse"></span> Telemetría Financiera
+                                </span>
+                                <span class="text-xs font-mono text-slate-400">TASA: 1.15% M.V.</span>
+                            </div>
+
+                            <div class="my-6 text-center">
+                                <span class="text-xs uppercase tracking-widest text-slate-400 font-rajdhani font-bold">Cuota Mensual Estimada</span>
+                                <div class="font-orbitron font-black text-4xl sm:text-5xl text-white neon-text-glow mt-1" id="monthlyQuotaDisplay">
+                                    $0 <span class="text-base text-neonBlue font-bold">USD/mes</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 bg-asphalt/90 rounded-2xl p-4 border border-slate-800 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Valor Motocicleta:</span>
+                                    <strong id="summaryTotalPrice" class="text-white font-orbitron">$0 USD</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Cuota Inicial:</span>
+                                    <strong id="summaryDownPayment" class="text-forkGold font-orbitron">$0 USD</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Monto a Financiar:</span>
+                                    <strong id="summaryFinanced" class="text-neonBlue font-orbitron">$0 USD</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#contacto" id="applyFinanceBtn" class="mt-6 w-full py-3.5 rounded-xl bg-gradient-to-r from-forkGold to-amberDark text-obsidian font-orbitron font-extrabold text-sm uppercase tracking-wider text-center hover:brightness-110 transition-all shadow-lg">
+                            Solicitar Pre-Aprobación <i class="fa-solid fa-bolt ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- POR QUÉ ELEGIR MOTO BIKERS / 4 PILARES -->
+    <section id="servicios" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="font-rajdhani font-bold text-neonBlue tracking-[0.2em] uppercase text-sm">Experiencia Integral</span>
+                <h2 class="font-orbitron font-black text-3xl sm:text-4xl chrome-text uppercase mt-1">El ADN Moto Bikers</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pilar 1 -->
+                <div class="chrome-border rainbow-border-hover rounded-2xl p-6">
+                    <div class="w-14 h-14 rounded-2xl bg-neonBlue/10 border border-neonBlue/40 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-neonBlue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-lg text-white mb-2">Entrega Inmediata</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Inventario propio listo para rodar. Sal del concesionario con matrícula, SOAT y casco certificado el mismo día.</p>
+                </div>
+
+                <!-- Pilar 2 -->
+                <div class="chrome-border rainbow-border-hover rounded-2xl p-6">
+                    <div class="w-14 h-14 rounded-2xl bg-forkGold/10 border border-forkGold/40 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-forkGold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-lg text-white mb-2">Taller Certificado</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Diagnóstico computarizado, telemetría, repuestos originales cromados y boutique de equipamiento racing.</p>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="chrome-border rainbow-border-hover rounded-2xl p-6">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-lg text-white mb-2">Financiación Flexible</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Recibimos tu moto usada en parte de pago y diseñamos planes hasta 60 meses con cuota inicial desde el 10%.</p>
+                </div>
+
+                <!-- Pilar 4 -->
+                <div class="chrome-border rainbow-border-hover rounded-2xl p-6">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/40 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-lg text-white mb-2">Comunidad Inclusiva</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Rodadas nocturnas, track days y encuentros abiertos para todos los riders que vibran con el orgullo y la velocidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO Y RESERVA DE TEST DRIVE -->
+    <section id="contacto" class="py-20 bg-asphalt/80 border-t border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <!-- Información del Concesionario -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="font-rajdhani font-bold text-neonBlue tracking-[0.2em] uppercase text-sm">Vive la Experiencia</span>
+                        <h2 class="font-orbitron font-black text-3xl sm:text-4xl chrome-text uppercase mt-1">Agenda tu Test Drive</h2>
+                        <p class="text-slate-400 text-sm sm:text-base mt-3">
+                            Siente el rugido del motor en nuestra pista de pruebas privada. Completa el formulario y un asesor especialista confirmará tu turno.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="chrome-border rounded-2xl p-4 flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-neonBlue/15 text-neonBlue flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-orbitron font-bold text-sm text-white">Flagship Store Moto Bikers</h4>
+                                <p class="text-slate-400 text-sm">Av. de las Américas #45-80, Zona Automotriz</p>
+                            </div>
+                        </div>
+
+                        <div class="chrome-border rounded-2xl p-4 flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-forkGold/15 text-forkGold flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-orbitron font-bold text-sm text-white">Horarios de Atención</h4>
+                                <p class="text-slate-400 text-sm">Lunes a Viernes: 8:30 AM - 7:00 PM<br>Sábados y Domingos: 9:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="chrome-border rounded-2xl p-4 flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-orbitron font-bold text-sm text-white">Línea Directa & WhatsApp</h4>
+                                <p class="text-slate-400 text-sm">+57 (300) 555-0199 • ventas@motobikers.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Interactivo -->
+                <div class="lg:col-span-7">
+                    <div class="chrome-border rounded-3xl p-6 sm:p-8 relative">
+                        <form id="testDriveForm" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="riderName" class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-1.5">Nombre Completo *</label>
+                                    <input type="text" id="riderName" required placeholder="Ej. Alex Ramírez" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 text-white text-sm focus:outline-none focus:border-neonBlue">
+                                </div>
+                                <div>
+                                    <label for="riderPhone" class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-1.5">Teléfono / WhatsApp *</label>
+                                    <input type="tel" id="riderPhone" required placeholder="Ej. +57 310 123 4567" class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 text-white text-sm focus:outline-none focus:border-neonBlue">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="formMotoSelect" class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-1.5">Moto de Interés *</label>
+                                    <select id="formMotoSelect" required class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 text-white text-sm focus:outline-none focus:border-neonBlue">
+                                        <!-- Poblado dinámicamente -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="rideDate" class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-1.5">Fecha Preferida *</label>
+                                    <input type="date" id="rideDate" required class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 text-white text-sm focus:outline-none focus:border-neonBlue">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="riderNotes" class="block font-rajdhani font-bold text-sm uppercase tracking-wider text-slate-300 mb-1.5">Comentarios o Solicitud de Financiación</label>
+                                <textarea id="riderNotes" rows="3" placeholder="Cuéntanos si deseas entregar tu moto actual en parte de pago o recibir simulación bancaria..." class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 text-white text-sm focus:outline-none focus:border-neonBlue"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-neonBlue to-electricBlue text-obsidian font-orbitron font-extrabold text-sm uppercase tracking-wider neon-glow transition-all transform hover:scale-[1.01]">
+                                Confirmar Reserva de Prueba <i class="fa-solid fa-flag-checkered ml-2"></i>
+                            </button>
+                        </form>
+
+                        <!-- Mensaje de Confirmación Elegante (Oculto por defecto) -->
+                        <div id="formSuccessBox" class="hidden text-center py-10 space-y-4">
+                            <div class="w-16 h-16 rounded-full bg-neonBlue/20 border-2 border-neonBlue text-neonBlue flex items-center justify-center mx-auto text-2xl neon-glow">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3 class="font-orbitron font-bold text-2xl text-white">¡Solicitud Registrada, Rider!</h3>
+                            <p id="confirmationText" class="text-slate-300 text-sm max-w-md mx-auto leading-relaxed"></p>
+                            <button id="resetFormBtn" type="button" class="mt-4 px-6 py-2.5 rounded-xl border border-slate-600 text-slate-300 hover:text-white hover:border-neonBlue text-xs font-orbitron uppercase tracking-wider">
+                                Agendar otra prueba
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-obsidian relative pt-12 pb-8">
+        <!-- Línea superior con degradado arcoíris cromado del logo -->
+        <div class="h-1.5 w-full rainbow-line absolute top-0 left-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800/80">
+                <div class="flex items-center gap-3">
+                    <img src="moto-bikers-logo.png" alt="Logo oficial MOTO BIKERS" class="w-16 h-16 object-contain">
+                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-carbon border border-slate-700 text-neonBlue">Official Dealer</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-400 font-rajdhani font-semibold uppercase tracking-wider">
+                    <a href="#inicio" class="hover:text-neonBlue transition-colors">Inicio</a>
+                    <a href="#catalogo" class="hover:text-neonBlue transition-colors">Catálogo</a>
+                    <a href="#financiamiento" class="hover:text-neonBlue transition-colors">Simulador</a>
+                    <a href="#servicios" class="hover:text-neonBlue transition-colors">Taller</a>
+                    <a href="#contacto" class="hover:text-neonBlue transition-colors">Test Drive</a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <a href="#contacto" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-carbon border border-slate-700 flex items-center justify-center text-slate-300 hover:text-neonBlue hover:border-neonBlue transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#contacto" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-carbon border border-slate-700 flex items-center justify-center text-slate-300 hover:text-neonBlue hover:border-neonBlue transition-all">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#contacto" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-carbon border border-slate-700 flex items-center justify-center text-slate-300 hover:text-neonBlue hover:border-neonBlue transition-all">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+                <p>&copy; 2026 MOTO BIKERS S.A.S. Todos los derechos reservados.</p>
+                <p>Diseñado con potencia cromada y espíritu libre sobre dos ruedas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL INTERACTIVO DE FICHA TÉCNICA -->
+    <div id="motoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md">
+        <div class="relative w-full max-w-3xl rounded-3xl p-1 rainbow-line shadow-2xl animate-[fadeIn_0.2s_ease-out]">
+            <div class="bg-asphalt rounded-[22px] overflow-hidden max-h-[90vh] overflow-y-auto">
+                
+                <!-- Botón Cerrar -->
+                <button id="closeModalBtn" aria-label="Cerrar ventana" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-obsidian/90 border border-slate-700 text-white hover:text-neonBlue hover:border-neonBlue flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Imagen y Selector de Color -->
+                    <div class="relative bg-obsidian flex flex-col justify-between">
+                        <img id="modalImg" src="" alt="Detalle Motocicleta" class="w-full h-64 md:h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        
+                        <div class="relative z-10 p-5">
+                            <span class="text-xs font-rajdhani font-bold uppercase tracking-widest text-slate-300 block mb-2">Acabado Disponible:</span>
+                            <div id="modalColorSwatches" class="flex items-center gap-3">
+                                <!-- Swatches generados dinámicamente -->
+                            </div>
+                            <p id="selectedColorName" class="text-xs text-neonBlue font-medium mt-2">Acero Cromado / Neón</p>
+                        </div>
+                    </div>
+
+                    <!-- Especificaciones y Acciones -->
+                    <div class="p-6 sm:p-8 flex flex-col justify-between space-y-5">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span id="modalCategory" class="px-2.5 py-0.5 rounded bg-neonBlue/15 text-neonBlue font-rajdhani font-bold text-xs uppercase tracking-wider">Deportiva</span>
+                                <span id="modalBadge" class="px-2.5 py-0.5 rounded bg-forkGold/15 text-forkGold font-rajdhani font-bold text-xs uppercase tracking-wider">Top Ventas</span>
+                            </div>
+                            <h3 id="modalTitle" class="font-orbitron font-black text-2xl chrome-text uppercase">VORTEX R1</h3>
+                            <p id="modalPrice" class="font-orbitron font-extrabold text-2xl text-forkGold mt-1">$18,900 USD</p>
+                            
+                            <p id="modalDesc" class="text-slate-300 text-sm mt-3 leading-relaxed"></p>
+
+                            <!-- Grid Ficha Técnica -->
+                            <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-slate-800 text-xs">
+                                <div class="bg-carbon p-3 rounded-xl border border-slate-800">
+                                    <span class="text-slate-400 block">Cilindrada</span>
+                                    <strong id="modalCC" class="text-white font-orbitron text-sm">998 cc</strong>
+                                </div>
+                                <div class="bg-carbon p-3 rounded-xl border border-slate-800">
+                                    <span class="text-slate-400 block">Potencia Máx.</span>
+                                    <strong id="modalHP" class="text-neonBlue font-orbitron text-sm">205 HP</strong>
+                                </div>
+                                <div class="bg-carbon p-3 rounded-xl border border-slate-800">
+                                    <span class="text-slate-400 block">Velocidad Punta</span>
+                                    <strong id="modalSpeed" class="text-white font-orbitron text-sm">299 km/h</strong>
+                                </div>
+                                <div class="bg-carbon p-3 rounded-xl border border-slate-800">
+                                    <span class="text-slate-400 block">Transmisión</span>
+                                    <strong id="modalGear" class="text-white font-orbitron text-sm">6 Vel. Quickshifter</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                            <button id="modalSimulateBtn" class="flex-1 py-3 px-4 rounded-xl bg-carbon border border-forkGold/60 text-forkGold font-orbitron font-bold text-xs uppercase tracking-wider hover:bg-forkGold hover:text-obsidian transition-all">
+                                Simular Cuota
+                            </button>
+                            <button id="modalBookBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-neonBlue to-electricBlue text-obsidian font-orbitron font-extrabold text-xs uppercase tracking-wider neon-glow transition-all">
+                                Agendar Cita
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DE INTERACTIVIDAD -->
+    <script>
+        // Base de datos de motocicletas del catálogo
+        const motorcycles = [
+            {
+                id: 1,
+                name: "VORTEX R1-CHROME",
+                category: "Deportivas",
+                cc: "998 cc",
+                hp: "205 HP",
+                topSpeed: "299 km/h",
+                gearbox: "6 Vel. Quickshifter",
+                price: 18900,
+                badge: "Edición Limitada",
+                badgeType: "gold",
+                image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",
+                description: "Superbike de circuito homologada para calle. Chasis de aluminio cepillado, suspensión electrónica con barras doradas y electrónica de control de tracción de 6 ejes.",
+                colors: [
+                    { name: "Acero Cromado / Azul Neón", hex: "#94A3B8" },
+                    { name: "Negro Obsidiana / Dorado", hex: "#1E293B" },
+                    { name: "Edición Arcoíris Racing", hex: "#00D2FF" }
+                ]
+            },
+            {
+                id: 2,
+                name: "APEX 750 RR",
+                category: "Deportivas",
+                cc: "749 cc",
+                hp: "148 HP",
+                topSpeed: "268 km/h",
+                gearbox: "6 Vel. Assist/Slipper",
+                price: 13400,
+                badge: "Más Vendida",
+                badgeType: "neon",
+                image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",
+                description: "Equilibrio letal entre agilidad en curvas cerradas y aceleración explosiva en recta. Aerodinámica con alerones integrados y frenos Brembo de doble disco.",
+                colors: [
+                    { name: "Plata Titanio", hex: "#CBD5E1" },
+                    { name: "Azul Eléctrico", hex: "#0099FF" }
+                ]
+            },
+            {
+                id: 3,
+                name: "STREET PHANTOM 900",
+                category: "Naked",
+                cc: "890 cc",
+                hp: "125 HP",
+                topSpeed: "242 km/h",
+                gearbox: "6 Vel. Bidireccional",
+                price: 12200,
+                badge: "Nuevo 2026",
+                badgeType: "neon",
+                image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=800&q=80",
+                description: "Hyper-naked agresiva con faro LED de doble óptica azul neón, par motor brutal desde bajas revoluciones y postura de ataque urbana.",
+                colors: [
+                    { name: "Carbón Mate / Neón", hex: "#334155" },
+                    { name: "Ámbar Metálico", hex: "#F59E0B" }
+                ]
+            },
+            {
+                id: 4,
+                name: "NITROUS 400 STREET",
+                category: "Naked",
+                cc: "399 cc",
+                hp: "48 HP",
+                topSpeed: "182 km/h",
+                gearbox: "6 Velocidades",
+                price: 6450,
+                badge: "Ideal A2",
+                badgeType: "gold",
+                image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+                description: "Ligera, ágil y con carácter deportivo. Tablero TFT a todo color con conectividad smartphone y escape acústico de acero inoxidable.",
+                colors: [
+                    { name: "Gris Asfalto", hex: "#475569" },
+                    { name: "Cromo Brillante", hex: "#E2E8F0" }
+                ]
+            },
+            {
+                id: 5,
+                name: "HORIZON 1250 GT",
+                category: "Adventure",
+                cc: "1254 cc",
+                hp: "136 HP",
+                topSpeed: "225 km/h",
+                gearbox: "6 Vel. Cardán",
+                price: 19800,
+                badge: "Pack Maletas",
+                badgeType: "gold",
+                image: "https://images.unsplash.com/photo-1622185135505-2d795003994a?auto=format&fit=crop&w=800&q=80",
+                description: "Conquista cualquier continente sin importar el clima o el terreno. Suspensión semiactiva, control crucero adaptativo y puños calefactables.",
+                colors: [
+                    { name: "Aluminio Cepillado", hex: "#94A3B8" },
+                    { name: "Negro Tormenta", hex: "#0F172A" }
+                ]
+            },
+            {
+                id: 6,
+                name: "NOMAD 800 X-TRAIL",
+                category: "Adventure",
+                cc: "798 cc",
+                hp: "95 HP",
+                topSpeed: "205 km/h",
+                gearbox: "6 Vel. Off-Road Mode",
+                price: 11900,
+                badge: "Aventura",
+                badgeType: "neon",
+                image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?auto=format&fit=crop&w=800&q=80",
+                description: "Rines de radios cruzados tubeless, horquilla invertida de largo recorrido y 4 modos de conducción para asfalto, lluvia y terracería.",
+                colors: [
+                    { name: "Dorado Rally", hex: "#D97706" },
+                    { name: "Plata Glacial", hex: "#E2E8F0" }
+                ]
+            },
+            {
+                id: 7,
+                name: "CYBER-GLIDE 300",
+                category: "Urbanas",
+                cc: "292 cc",
+                hp: "29 HP",
+                topSpeed: "145 km/h",
+                gearbox: "Automática CVT",
+                price: 5300,
+                badge: "Smart Key",
+                badgeType: "neon",
+                image: "https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",
+                description: "Maxi-scooter futurista con iluminación Full LED, control de tracción, ABS de doble canal y espacio bajo el asiento para dos cascos integrales.",
+                colors: [
+                    { name: "Titanio Oscuro", hex: "#1E293B" },
+                    { name: "Azul Neón", hex: "#00D2FF" }
+                ]
+            },
+            {
+                id: 8,
+                name: "METRO VOLT 150",
+                category: "Urbanas",
+                cc: "155 cc",
+                hp: "16 HP",
+                topSpeed: "118 km/h",
+                gearbox: "Automática V-Belt",
+                price: 3450,
+                badge: "Bajo Consumo",
+                badgeType: "gold",
+                image: "https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=800&q=80",
+                description: "Movilidad urbana ágil con estilo café-urban, puerto de carga rápida USB-C y frenada combinada de alta seguridad.",
+                colors: [
+                    { name: "Cromo Urbano", hex: "#CBD5E1" },
+                    { name: "Negro Carbón", hex: "#08080A" }
+                ]
+            }
+        ];
+
+        // Estado global de la aplicación
+        let currentCategory = "Todas";
+        let currentSearch = "";
+        let selectedTermMonths = 36;
+        let currentModalMoto = null;
+
+        // Formateador de moneda USD
+        const formatCurrency = (num) => {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+        };
+
+        // Renderizar tarjetas del catálogo
+        function renderCatalog() {
+            const grid = document.getElementById('motoGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            const filtered = motorcycles.filter(moto => {
+                const matchesCategory = currentCategory === "Todas" || moto.category === currentCategory;
+                const searchLower = currentSearch.toLowerCase();
+                const matchesSearch = moto.name.toLowerCase().includes(searchLower) || 
+                                      moto.cc.toLowerCase().includes(searchLower) ||
+                                      moto.category.toLowerCase().includes(searchLower);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(moto => {
+                const badgeStyle = moto.badgeType === 'gold' 
+                    ? 'bg-obsidian/90 border-forkGold/70 text-forkGold' 
+                    : 'bg-obsidian/90 border-neonBlue/70 text-neonBlue';
+
+                return `
+                    <article class="chrome-border rainbow-border-hover rounded-2xl overflow-hidden flex flex-col justify-between group">
+                        <div>
+                            <!-- Imagen y Etiqueta -->
+                            <div class="relative h-52 overflow-hidden bg-obsidian">
+                                <img 
+                                    src="${moto.image}" 
+                                    alt="${moto.name}" 
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/121318/00D2FF?text=${encodeURIComponent(moto.name)}';"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-transparent"></div>
+                                <span class="absolute top-3 left-3 px-3 py-1 rounded-full border text-[11px] font-rajdhani font-bold uppercase tracking-wider backdrop-blur-md ${badgeStyle}">
+                                    ${moto.badge}
+                                </span>
+                                <span class="absolute bottom-2 right-3 text-xs font-rajdhani font-bold uppercase tracking-wider text-slate-300 bg-obsidian/80 px-2.5 py-0.5 rounded-md">
+                                    ${moto.category}
+                                </span>
+                            </div>
+
+                            <!-- Info Principal -->
+                            <div class="p-5">
+                                <h3 class="font-orbitron font-bold text-lg text-white group-hover:text-neonBlue transition-colors truncate">${moto.name}</h3>
+                                <p class="font-orbitron font-extrabold text-xl text-forkGold mt-1">${formatCurrency(moto.price)} <span class="text-xs font-normal text-slate-400">USD</span></p>
+
+                                <!-- Specs Rápidas -->
+                                <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-slate-800 text-center text-xs">
+                                    <div class="bg-obsidian/60 rounded-lg py-1.5">
+                                        <span class="text-slate-500 block text-[10px] uppercase">Motor</span>
+                                        <strong class="text-slate-200 font-rajdhani text-sm">${moto.cc}</strong>
+                                    </div>
+                                    <div class="bg-obsidian/60 rounded-lg py-1.5">
+                                        <span class="text-slate-500 block text-[10px] uppercase">Potencia</span>
+                                        <strong class="text-neonBlue font-rajdhani text-sm">${moto.hp}</strong>
+                                    </div>
+                                    <div class="bg-obsidian/60 rounded-lg py-1.5">
+                                        <span class="text-slate-500 block text-[10px] uppercase">Máxima</span>
+                                        <strong class="text-slate-200 font-rajdhani text-sm">${moto.topSpeed}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones Tarjeta -->
+                        <div class="px-5 pb-5 pt-1 flex gap-2">
+                            <button onclick="openMotoModal(${moto.id})" class="flex-1 py-2.5 px-3 rounded-xl bg-carbon border border-slate-600 hover:border-neonBlue text-white font-rajdhani font-bold text-sm uppercase tracking-wider transition-all">
+                                Ver Detalles
+                            </button>
+                            <button onclick="quickQuote(${moto.id})" class="py-2.5 px-3.5 rounded-xl bg-neonBlue/15 border border-neonBlue/50 hover:bg-neonBlue hover:text-obsidian text-neonBlue font-rajdhani font-bold text-sm uppercase tracking-wider transition-all" title="Simular Cuota">
+                                <i class="fa-solid fa-calculator"></i>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // Inicializar Selects del Simulador y del Formulario
+        function populateSelects() {
+            const calcSelect = document.getElementById('calcMotoSelect');
+            const formSelect = document.getElementById('formMotoSelect');
+
+            const optionsHTML = motorcycles.map(m => 
+                `<option value="${m.id}">${m.name} (${m.cc}) — ${formatCurrency(m.price)} USD</option>`
+            ).join('');
+
+            calcSelect.innerHTML = optionsHTML;
+            formSelect.innerHTML = optionsHTML;
+        }
+
+        // Calcular Financiación en Tiempo Real
+        function calculateFinancing() {
+            const motoId = parseInt(document.getElementById('calcMotoSelect').value);
+            const moto = motorcycles.find(m => m.id === motoId) || motorcycles[0];
+            const downPct = parseInt(document.getElementById('downPaymentSlider').value);
+
+            const downAmount = moto.price * (downPct / 100);
+            const financedAmount = moto.price - downAmount;
+            const monthlyRate = 0.0115; // 1.15% mensual vencido
+
+            // Fórmula cuota fija francesa
+            const monthlyQuota = (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -selectedTermMonths));
+
+            // Actualizar UI
+            document.getElementById('downPaymentPct').textContent = `${downPct}%`;
+            document.getElementById('downPaymentAmount').textContent = `${formatCurrency(downAmount)} USD`;
+            document.getElementById('monthlyQuotaDisplay').innerHTML = `${formatCurrency(monthlyQuota)} <span class="text-base text-neonBlue font-bold">USD/mes</span>`;
+            
+            document.getElementById('summaryTotalPrice').textContent = `${formatCurrency(moto.price)} USD`;
+            document.getElementById('summaryDownPayment').textContent = `${formatCurrency(downAmount)} USD`;
+            document.getElementById('summaryFinanced').textContent = `${formatCurrency(financedAmount)} USD`;
+        }
+
+        // Abrir Modal con Detalles de la Moto
+        function openMotoModal(id) {
+            const moto = motorcycles.find(m => m.id === id);
+            if (!moto) return;
+            currentModalMoto = moto;
+
+            document.getElementById('modalImg').src = moto.image;
+            document.getElementById('modalCategory').textContent = moto.category;
+            document.getElementById('modalBadge').textContent = moto.badge;
+            document.getElementById('modalTitle').textContent = moto.name;
+            document.getElementById('modalPrice').textContent = `${formatCurrency(moto.price)} USD`;
+            document.getElementById('modalDesc').textContent = moto.description;
+            document.getElementById('modalCC').textContent = moto.cc;
+            document.getElementById('modalHP').textContent = moto.hp;
+            document.getElementById('modalSpeed').textContent = moto.topSpeed;
+            document.getElementById('modalGear').textContent = moto.gearbox;
+
+            // Renderizar selectores de color
+            const swatchContainer = document.getElementById('modalColorSwatches');
+            document.getElementById('selectedColorName').textContent = moto.colors[0].name;
+            swatchContainer.innerHTML = moto.colors.map((c, idx) => `
+                <button type="button" onclick="selectModalColor('${c.name}', this)" 
+                    class="color-swatch w-7 h-7 rounded-full border-2 ${idx === 0 ? 'border-neonBlue scale-110' : 'border-slate-500'} transition-transform" 
+                    style="background-color: ${c.hex};" title="${c.name}">
+                </button>
+            `).join('');
+
+            const modal = document.getElementById('motoModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function selectModalColor(name, btnElement) {
+            document.getElementById('selectedColorName').textContent = name;
+            document.querySelectorAll('.color-swatch').forEach(b => {
+                b.classList.remove('border-neonBlue', 'scale-110');
+                b.classList.add('border-slate-500');
+            });
+            btnElement.classList.remove('border-slate-500');
+            btnElement.classList.add('border-neonBlue', 'scale-110');
+        }
+
+        function closeMotoModal() {
+            const modal = document.getElementById('motoModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Cotización rápida desde tarjeta o modal
+        function quickQuote(motoId) {
+            document.getElementById('calcMotoSelect').value = motoId;
+            calculateFinancing();
+            document.getElementById('financiamiento').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Eventos DOM al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSelects();
+            renderCatalog();
+            calculateFinancing();
+
+            // Establecer fecha mínima de hoy en el formulario
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('rideDate').setAttribute('min', today);
+            document.getElementById('rideDate').value = today;
+
+            // Filtros por categoría
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('bg-neonBlue', 'text-obsidian', 'neon-glow', 'active');
+                        b.classList.add('bg-carbon', 'text-slate-300', 'border', 'border-slate-700');
+                    });
+                    btn.classList.remove('bg-carbon', 'text-slate-300', 'border', 'border-slate-700');
+                    btn.classList.add('bg-neonBlue', 'text-obsidian', 'neon-glow', 'active');
+                    
+                    currentCategory = btn.getAttribute('data-category');
+                    renderCatalog();
+                });
+            });
+
+            // Buscador en tiempo real
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                currentSearch = e.target.value;
+                renderCatalog();
+            });
+
+            // Eventos Calculadora
+            document.getElementById('calcMotoSelect').addEventListener('change', calculateFinancing);
+            document.getElementById('downPaymentSlider').addEventListener('input', calculateFinancing);
+
+            document.querySelectorAll('.term-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.term-btn').forEach(b => {
+                        b.classList.remove('bg-neonBlue', 'text-obsidian', 'neon-glow', 'active');
+                        b.classList.add('bg-obsidian', 'border', 'border-slate-700', 'text-slate-300');
+                    });
+                    btn.classList.remove('bg-obsidian', 'border', 'border-slate-700', 'text-slate-300');
+                    btn.classList.add('bg-neonBlue', 'text-obsidian', 'neon-glow', 'active');
+
+                    selectedTermMonths = parseInt(btn.getAttribute('data-months'));
+                    calculateFinancing();
+                });
+            });
+
+            // Botón Pre-aprobación lleva moto seleccionada al formulario
+            document.getElementById('applyFinanceBtn').addEventListener('click', () => {
+                const selectedId = document.getElementById('calcMotoSelect').value;
+                document.getElementById('formMotoSelect').value = selectedId;
+            });
+
+            // Eventos Modal
+            document.getElementById('closeModalBtn').addEventListener('click', closeMotoModal);
+            document.getElementById('motoModal').addEventListener('click', (e) => {
+                if (e.target.id === 'motoModal') closeMotoModal();
+            });
+
+            document.getElementById('modalSimulateBtn').addEventListener('click', () => {
+                if (currentModalMoto) {
+                    const id = currentModalMoto.id;
+                    closeMotoModal();
+                    quickQuote(id);
+                }
+            });
+
+            document.getElementById('modalBookBtn').addEventListener('click', () => {
+                if (currentModalMoto) {
+                    document.getElementById('formMotoSelect').value = currentModalMoto.id;
+                    closeMotoModal();
+                    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            // Formulario Test Drive
+            const form = document.getElementById('testDriveForm');
+            const successBox = document.getElementById('formSuccessBox');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('riderName').value;
+                const motoSelect = document.getElementById('formMotoSelect');
+                const motoText = motoSelect.options[motoSelect.selectedIndex].text.split('—')[0];
+                const date = document.getElementById('rideDate').value;
+
+                document.getElementById('confirmationText').innerHTML = 
+                    `Hemos reservado tu prueba de manejo para la <strong class="text-neonBlue">${motoText}</strong> el día <strong class="text-white">${date}</strong>. Te contactaremos vía WhatsApp en breve, <strong>${name}</strong>.`;
+
+                form.classList.add('hidden');
+                successBox.classList.remove('hidden');
+            });
+
+            document.getElementById('resetFormBtn').addEventListener('click', () => {
+                form.reset();
+                document.getElementById('rideDate').value = today;
+                successBox.classList.add('hidden');
+                form.classList.remove('hidden');
+            });
+
+            // Menú Móvil Toggle
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        });
+    </script>
+</body>
+</html>
